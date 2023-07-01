@@ -2,6 +2,7 @@ import React , {useState , useEffect}from "react";
 import client, {COLLECTION_ID, DATABASE_ID, databases} from "../appwriteConfig";
 import {ID, Query} from "appwrite";
 import {Trash2} from "react-feather";
+import  Header from "../components/Header";
 
 const Room = () => {
 
@@ -58,7 +59,9 @@ const Room = () => {
     }
     return (
         <main className="container">
+             <Header/>
             <div className="room--container">
+           
 
             <form onSubmit={handleSumbit} id= "message--form">
                 <div>

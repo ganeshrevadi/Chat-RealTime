@@ -13,8 +13,18 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        setLoading(false)
+        getUserOnLoad()
     }, [])
+
+    const getUserOnLoad = async () => {
+        try{
+            const accountDetails = await account.get()
+            setUser(accountDetails)
+        }catch(error){
+            console.log(error)
+        }
+        setLoading(false)
+    }
 
     const handleUserLogin = async (e,credentials) => {
         e.preventDefault()
@@ -31,9 +41,16 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const handleUserLogout = async () =>
+    {
+        account.deleteSession('current')
+        setUser(null)
+    }
+
     const contextData = {
         user,
-        handleUserLogin
+        handleUserLogin,
+        handleUserLogout
     }
 
     return <AuthContext.Provider value = {contextData}>
