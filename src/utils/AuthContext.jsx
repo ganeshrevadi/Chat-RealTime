@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
         e.preventDefault()
         try{
             const response = await account.createEmailSession(credentials.email,credentials.password)
-            console.log('LOGGED IN', response)
+            console.log('LOGGED IN USER', response)
             const accountDetails = await account.get()
             setUser(accountDetails)
 
