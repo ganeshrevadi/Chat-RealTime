@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect ,useContext} from "react";
 import { account } from "../appwriteConfig";
 import {useNavigate} from "react-router-dom";
+import { ID } from "appwrite";
 
 const AuthContext = createContext();
 
@@ -11,6 +12,7 @@ export const AuthProvider = ({ children }) => {
 
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
+    
 
     useEffect(() => {
         getUserOnLoad()
@@ -18,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
     const getUserOnLoad = async () => {
         try{
-            const accountDetails = await account.get()
+            const accountDetails = await account.get();
             setUser(accountDetails)
         }catch(error){
             console.log(error)
@@ -37,7 +39,7 @@ export const AuthProvider = ({ children }) => {
             navigate('/')
         }
         catch(error) {
-            console.log(error)
+            console.info(error)
         }
     }
 
@@ -49,6 +51,23 @@ export const AuthProvider = ({ children }) => {
 
     const handleUserRegister = async (e,credentials) => {
         e.preventDefault()
+
+        if(credentials.password1 !== credentials.password2){
+            alert('Passwords do not match!')
+            return
+        }
+
+        try{
+            let response = await account.create(ID.unique(),credentials.email,credentials.password1,credentials.name)
+        
+            await account.createEmailSession(credentials.email,credentials.password1)
+            const accountDetails = await account.get()
+            console.log('ACCOUNT DETAILS', accountDetails)
+            setUser(accountDetails)
+            navigate('/')
+        }catch(error){
+            console.log(error)
+        }
     }
 
     const contextData = {
