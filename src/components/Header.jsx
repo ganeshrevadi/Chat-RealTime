@@ -9,7 +9,7 @@ const Header = () => {
             {
                 user?(
                 <>
-                    Welcome {user.name}
+                    Welcome {user.name} !
                     <LogOut onClick={handleUserLogout} className="header--link"/>
 
                 </>
