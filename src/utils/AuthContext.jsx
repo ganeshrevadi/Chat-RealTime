@@ -47,10 +47,15 @@ export const AuthProvider = ({ children }) => {
         setUser(null)
     }
 
+    const handleUserRegister = async (e,credentials) => {
+        e.preventDefault()
+    }
+
     const contextData = {
         user,
         handleUserLogin,
-        handleUserLogout
+        handleUserLogout,
+        handleUserRegister
     }
 
     return <AuthContext.Provider value = {contextData}>

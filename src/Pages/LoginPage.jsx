@@ -1,6 +1,6 @@
 import React , { useEffect ,useState } from "react";
 import { useAuth } from "../utils/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const LoginPage = () => {
 
@@ -50,6 +50,7 @@ const LoginPage = () => {
 
                         </div>
                     </form>
+                    <p>Don't have an account? Register <Link to="/register">here</Link></p>
 
                 </div>
         </div>
